@@ -157,7 +157,7 @@ const renderCardElement = function (card) {
     cardElement.querySelector(`.popup__text--time`).remove();
   }
   let features = cardElement.querySelector(`.popup__features`);
-  if (isEmpty(card.offer.features)) {
+  if (!isEmpty(card.offer.features)) {
     const FEATURE_TEMPLATE = features.querySelector(`.popup__feature`);
     FEATURE_TEMPLATE.classList.remove(`popup__feature--wifi`);
     features.querySelectorAll(`.popup__feature`).forEach((el) => el.remove());
