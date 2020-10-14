@@ -195,4 +195,3 @@ const renderCardElement = function (card) {
 };
 document.querySelector(`.map__filters-container`).before(renderCardElement(mapPins[0]));
 
-
