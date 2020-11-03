@@ -127,17 +127,14 @@ let mapPins = getMapPins();
 let mapPinsWrapper = map.querySelector(`.map__pins`);
 mapPinsWrapper.appendChild(createMapPinFragment());
 
-// map.classList.remove(`map--faded`);
-
-function isEmpty(obj) {
+const isEmpty = function (obj) {
   // eslint-disable-next-line guard-for-in
   for (let key in obj) {
     // если тело цикла начнет выполняться - значит в объекте есть свойства
     return false;
   }
   return true;
-}
-
+};
 const renderCardElement = function (card) {
   const CARD_TEMPLATE = document.querySelector(`#card`).content.querySelector(`.map__card`);
   let cardElement = CARD_TEMPLATE.cloneNode(true);
@@ -348,8 +345,7 @@ const roomNumberChange = function () {
   }
 };
 roomNumber.addEventListener(`change`, roomNumberChange);
-let selectMapPin = null;
-const mapPinClick = function (evt) {
+const onMapPinMouseDown = function (evt) {
   let targetPin = evt.target;
   if (evt.target.matches(`.map__pin`) && !evt.target.matches(`.map__pin--main`)) {
     targetPin = evt.target;
@@ -358,27 +354,59 @@ const mapPinClick = function (evt) {
   } else {
     return;
   }
+  openPopup(targetPin);
+};
+const openPopup = function (targetPin) {
   let top = parseInt(targetPin.style.top, 10);
   let left = parseInt(targetPin.style.left, 10);
   try {
-    document.querySelector(`.map__card.popup`).remove();
+    closePopup();
   } catch (e) {
     null;
   }
-  selectMapPin = mapPins.find(findMapPins(top, left));
-  document.querySelector(`.map__filters-container`).before(renderCardElement(selectMapPin));
+  let selectMapPin = mapPins.find(findMapPins(top, left));
+  let renderCard = renderCardElement(selectMapPin);
+  document.querySelector(`.map__filters-container`).before(renderCard);
+  let popupClose = document.querySelector(`.popup__close`);
+  popupClose.addEventListener(`click`, onPopupCloseMouseDown);
+  popupClose.addEventListener(`keydown`, onPopupCloseEnterPress);
+  document.addEventListener(`keydown`, onPopupEscPress);
 };
 const findMapPins = function (top, left) {
   return function (element) {
-    if (element.location.x === (left + MAP_PIN_WIDTH / 2) && element.location.y === (top + MAP_PIN_HEIGHT)) {
-      return true;
-    } else {
-      return false;
-    }
+    return element.location.x === (left + MAP_PIN_WIDTH / 2) && element.location.y === (top + MAP_PIN_HEIGHT);
   };
 };
-// const onPopupCloseClick = function () {
-
-
-// };
-mapPinsWrapper.addEventListener(`click`, mapPinClick);
+const onMapPinEnterPress = function (evt) {
+  if (evt.key === `Enter`) {
+    let targetPin = evt.target;
+    if (evt.target.matches(`.map__pin`) && !evt.target.matches(`.map__pin--main`)) {
+      targetPin = evt.target;
+    } else if (evt.target.parentNode.matches(`.map__pin`) && !evt.target.parentNode.matches(`.map__pin--main`)) {
+      targetPin = evt.target.parentNode;
+    } else {
+      return;
+    }
+    openPopup(targetPin);
+  }
+};
+const closePopup = function () {
+  document.querySelector(`.map__card.popup`).remove();
+  document.removeEventListener(`keydown`, onPopupEscPress);
+};
+const onPopupCloseMouseDown = function () {
+  closePopup();
+};
+const onPopupCloseEnterPress = function (evt) {
+  if (evt.key === `Enter`) {
+    closePopup();
+  }
+};
+const onPopupEscPress = function (evt) {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+mapPinsWrapper.addEventListener(`click`, onMapPinMouseDown);
+mapPinsWrapper.addEventListener(`keydown`, onMapPinEnterPress);
