@@ -18,7 +18,6 @@
     }
     return fragment;
   };
-<<<<<<< HEAD
   const onMapPinEnterPress = function (evt) {
     if (evt.key === `Enter`) {
       let targetPin = evt.target;
@@ -43,18 +42,11 @@
     }
     window.card.openCard(targetPin);
   };
-
   window.object.mapPinsWrapper.appendChild(createPinFragment());
   window.object.mapPinsWrapper.addEventListener(`click`, onMapPinMouseDown);
   window.object.mapPinsWrapper.addEventListener(`keydown`, onMapPinEnterPress);
   window.pin = {
     PIN_WIDTH,
     PIN_HEIGHT,
-=======
-  window.object.mapPinsWrapper.appendChild(createPinFragment());
-  window.pin = {
-    PIN_WIDTH: PIN_WIDTH,
-    PIN_HEIGHT: PIN_HEIGHT,
->>>>>>> e0b0688c1e263f85211f9c812a8f0b12c4d20bac
   };
 })();
