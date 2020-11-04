@@ -360,7 +360,7 @@ const openPopup = function (targetPin) {
   let top = parseInt(targetPin.style.top, 10);
   let left = parseInt(targetPin.style.left, 10);
   try {
-    closePopup();
+    closeCard();
   } catch (e) {
     null;
   }
@@ -390,22 +390,22 @@ const onMapPinEnterPress = function (evt) {
     openPopup(targetPin);
   }
 };
-const closePopup = function () {
+const closeCard = function () {
   document.querySelector(`.map__card.popup`).remove();
   document.removeEventListener(`keydown`, onPopupEscPress);
 };
 const onPopupCloseMouseDown = function () {
-  closePopup();
+  closeCard();
 };
 const onPopupCloseEnterPress = function (evt) {
   if (evt.key === `Enter`) {
-    closePopup();
+    closeCard();
   }
 };
 const onPopupEscPress = function (evt) {
   if (evt.key === `Escape`) {
     evt.preventDefault();
-    closePopup();
+    closeCard();
   }
 };
 mapPinsWrapper.addEventListener(`click`, onMapPinMouseDown);
