@@ -7,23 +7,23 @@
     if (evt.button === 0) {
       window.map.makePageEnabled();
       window.form.getAddress();
-      window.object.mapPinMain.removeEventListener(`mousedown`, onMapPinMainMouseDown);
-      window.object.mapPinMain.removeEventListener(`keydown`, onMapPinMainEnter);
+      mapPinMain.removeEventListener(`mousedown`, onMapPinMainMouseDown);
+      mapPinMain.removeEventListener(`keydown`, onMapPinMainEnter);
     }
   };
   const onMapPinMainEnter = function (evt) {
     if (evt.key === `Enter`) {
       window.map.makePageEnabled();
       window.form.getAddress();
-      window.object.mapPinMain.removeEventListener(`mousedown`, onMapPinMainMouseDown);
-      window.object.mapPinMain.removeEventListener(`keydown`, onMapPinMainEnter);
+      mapPinMain.removeEventListener(`mousedown`, onMapPinMainMouseDown);
+      mapPinMain.removeEventListener(`keydown`, onMapPinMainEnter);
     }
   };
   mapPinMain.addEventListener(`mousedown`, onMapPinMainMouseDown);
   mapPinMain.addEventListener(`keydown`, onMapPinMainEnter);
   window.pinMain = {
-    mapPinMain: mapPinMain,
-    MAP_PIN_MAIN_WIDTH: MAP_PIN_MAIN_WIDTH,
-    MAP_PIN_MAIN_HEIGHT: MAP_PIN_MAIN_HEIGHT,
+    mapPinMain,
+    MAP_PIN_MAIN_WIDTH,
+    MAP_PIN_MAIN_HEIGHT,
   };
 })();
