@@ -87,5 +87,9 @@
   };
   window.data = {
     data: getData(),
+    LOCATION_X_MIN,
+    LOCATION_Y_MIN,
+    LOCATION_Y_MAX,
+    LOCATION_X_MAX,
   };
 })();
