@@ -87,7 +87,6 @@
       return element.location.x === (left + window.pin.PIN_WIDTH / 2) && element.location.y === (top + window.pin.PIN_HEIGHT);
     };
   };
-
   const closeCard = function () {
     document.querySelector(`.map__card.popup`).remove();
     document.removeEventListener(`keydown`, onCardEscPress);
