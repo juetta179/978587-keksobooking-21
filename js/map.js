@@ -28,11 +28,21 @@
   };
   makePageDisable();
 
-  const successHandler = function (uploadData) {
-    window.data.data = uploadData;
-    window.object.mapPinsWrapper.appendChild(window.pin.createPinFragment(window.data.data));
+  const renderPinsOnMap = function (pins) {
+    try {
+      window.card.closeCard();
+    } catch (e) {
+      null;
+    }
+    window.object.mapPinsWrapper.appendChild(window.pin.createPinFragment(pins));
     window.object.mapPinsWrapper.addEventListener(`click`, window.pin.onMapPinMouseDown);
     window.object.mapPinsWrapper.addEventListener(`keydown`, window.pin.onMapPinEnterPress);
+
+  };
+
+  const successHandler = function (uploadData) {
+    window.data.data = uploadData;
+    renderPinsOnMap(uploadData);
   };
 
   const errorHandler = function (errorMessage) {

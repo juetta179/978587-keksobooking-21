@@ -90,5 +90,7 @@
     mapPinMain,
     MAP_PIN_MAIN_WIDTH,
     MAP_PIN_MAIN_HEIGHT,
+    onMapPinMainMouseDown,
+    onMapPinMainEnter,
   };
 })();

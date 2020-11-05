@@ -104,11 +104,84 @@
 
   const submitHandler = function (evt) {
     evt.preventDefault();
+
     window.upload(new FormData(window.object.adForm), function () {
-    });
+      resetAdForm();
+      window.map.makePageDisable();
+      window.pinMain.mapPinMain.addEventListener(`mousedown`, window.pinMain.onMapPinMainMouseDown);
+      window.pinMain.mapPinMain.addEventListener(`keydown`, window.pinMain.onMapPinMainEnter);
+      showSuccessMassage();
+    }, showErrorMassage);
   };
   window.object.adForm.addEventListener(`submit`, submitHandler);
+  let adFormReset = window.object.adForm.querySelector(`.ad-form__reset`);
+  const resetAdForm = function () {
+    window.object.adForm.reset();
+    getAddress();
+  };
+  const adFormResetReset = function (evt) {
+    evt.preventDefault();
+    resetAdForm();
+  };
+  const adFormResetEnterPress = function (evt) {
+    if (evt.key === `Enter`) {
+      resetAdForm();
+    }
+  };
 
+  adFormReset.addEventListener(`click`, adFormResetReset);
+  adFormReset.addEventListener(`keydonw`, adFormResetEnterPress);
+
+
+  const showSuccessMassage = function () {
+    const SUCCESS_TEMPLATE = document.querySelector(`#success`).content.querySelector(`.success`);
+    let success = SUCCESS_TEMPLATE.cloneNode(true);
+    window.object.adForm.before(success);
+    window.addEventListener(`click`, onSuccessMassageClick);
+    window.addEventListener(`keydown`, onSuccessMassageEcsPress);
+  };
+  const onSuccessMassageClick = function () {
+    closeSuccessMassage();
+  };
+  const onSuccessMassageEcsPress = function (evt) {
+    if (evt.key === `Escape`) {
+      closeSuccessMassage();
+    }
+  };
+  const closeSuccessMassage = function () {
+    let success = document.querySelector(`.notice`).querySelector(`.success`);
+    success.remove();
+    window.removeEventListener(`click`, onSuccessMassageClick);
+    window.removeEventListener(`keydown`, onSuccessMassageEcsPress);
+  };
+
+  const showErrorMassage = function () {
+    const ERROR_TEMPLATE = document.querySelector(`#error`).content.querySelector(`.error`);
+    let error = ERROR_TEMPLATE.cloneNode(true);
+    window.object.adForm.before(error);
+    window.addEventListener(`click`, onErrorMassageClick);
+    window.addEventListener(`keydown`, onErrorMassageEcsPress);
+    window.form.buttonErrorClose = document.querySelector(`.notice`).querySelector(`.error__button`);
+    window.form.buttonErrorClose.focus();
+    window.form.buttonErrorClose.addEventListener(`click`, buttonErrorCloseClick);
+  };
+  const closeErrorMassage = function () {
+    let error = document.querySelector(`.notice`).querySelector(`.error`);
+    error.remove();
+    window.removeEventListener(`click`, onErrorMassageClick);
+    window.removeEventListener(`keydown`, onErrorMassageEcsPress);
+  };
+  const onErrorMassageClick = function () {
+    closeErrorMassage();
+  };
+  const onErrorMassageEcsPress = function (evt) {
+    if (evt.key === `Escape`) {
+      closeErrorMassage();
+    }
+  };
+  const buttonErrorCloseClick = function () {
+    closeErrorMassage();
+  };
 
   window.form = {
     getAddress,

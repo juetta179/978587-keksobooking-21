@@ -43,11 +43,12 @@
     window.card.openCard(targetPin);
   };
 
+
   window.pin = {
     PIN_WIDTH,
     PIN_HEIGHT,
     createPinFragment,
     onMapPinEnterPress,
-    onMapPinMouseDown
+    onMapPinMouseDown,
   };
 })();
