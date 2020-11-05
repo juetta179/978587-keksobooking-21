@@ -59,9 +59,9 @@
       photos.remove();
     }
     if (card.author.avatar) {
-      cardElement.querySelector(`.popup__avatar`).remove();
-    } else {
       cardElement.querySelector(`.popup__avatar`).src = card.author.avatar;
+    } else {
+      cardElement.querySelector(`.popup__avatar`).remove();
     }
     return cardElement;
   };

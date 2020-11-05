@@ -101,7 +101,16 @@
     address.value = `${x.toString()}, ${y.toString()}`;
   };
   getAddress();
+
+  const submitHandler = function (evt) {
+    evt.preventDefault();
+    window.upload(new FormData(window.object.adForm), function () {
+    });
+  };
+  window.object.adForm.addEventListener(`submit`, submitHandler);
+
+
   window.form = {
-    getAddress: getAddress,
+    getAddress,
   };
 })();

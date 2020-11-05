@@ -2,7 +2,7 @@
 (function () {
   const LOCATION_X_MIN = 0;
   const LOCATION_Y_MIN = 130;
-  const LOCATION_Y_MAX = 631;
+  const LOCATION_Y_MAX = 630;
   const TITLE = `Добро пожаловать на генератор рыбных текстов!`;
   const PRICE_MIN = 1000;
   const PRICE_MAX = 100000;

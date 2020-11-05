@@ -11,10 +11,10 @@
     pinElement.querySelector(`img`).alt = dataPin.title;
     return pinElement;
   };
-  const createPinFragment = function () {
+  const createPinFragment = function (data) {
     let fragment = document.createDocumentFragment();
-    for (let i = 0; i < window.data.data.length; i++) {
-      fragment.appendChild(renderPinElement(window.data.data[i]));
+    for (let i = 0; i < data.length; i++) {
+      fragment.appendChild(renderPinElement(data[i]));
     }
     return fragment;
   };
@@ -42,11 +42,12 @@
     }
     window.card.openCard(targetPin);
   };
-  window.object.mapPinsWrapper.appendChild(createPinFragment());
-  window.object.mapPinsWrapper.addEventListener(`click`, onMapPinMouseDown);
-  window.object.mapPinsWrapper.addEventListener(`keydown`, onMapPinEnterPress);
+
   window.pin = {
     PIN_WIDTH,
     PIN_HEIGHT,
+    createPinFragment,
+    onMapPinEnterPress,
+    onMapPinMouseDown
   };
 })();
